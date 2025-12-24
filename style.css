@@ -17,8 +17,6 @@ body{
   min-height:100vh;
   padding:30px 10px;
 }
-
-/* container */
 .container{
   width:90%;
   max-width:var(--container-width);
@@ -46,8 +44,6 @@ label{display:block;margin-top:10px;font-weight:600;color:#333;}
   color:#000;
   background:#fff;
 }
-
-/* normalize select arrow */
 select{
   appearance:none;
   -webkit-appearance:none;
@@ -58,8 +54,6 @@ select{
   background-size:18px;
   padding-right:46px;
 }
-
-/* Normal buttons */
 .btn{
   width:100%;
   background:var(--red);
@@ -74,7 +68,6 @@ select{
 
 .btn.secondary{background:#6A0000;}
 
-/* Dashboard large buttons (matching screenshots) */
 .dashboard-buttons{
   display:flex;
   flex-direction:column;
@@ -95,11 +88,9 @@ select{
   text-align:center;
 }
 
-/* logout style a bit different */
 .dash-btn.logout{ background:#7a0000; }
 
-/* Info box */
 .info-box{ margin-top:12px;background:#fafafa;border:1px solid #eee;padding:12px;border-radius:8px;color:#333; }
 
-/* small text */
 .small{font-size:13px;color:#333;margin-top:8px;text-align:center;}
+
