@@ -1,4 +1,4 @@
-// ------------ Simple front-end data (localStorage) -------------
+
 const ADMIN = { username: "admin", password: "admin123", role: "Admin" };
 const USERS_KEY = "bd_users";
 const DONATIONS_KEY = "bd_donations";
@@ -8,12 +8,12 @@ function read(key){ return JSON.parse(localStorage.getItem(key) || "[]"); }
 function write(key,val){ localStorage.setItem(key, JSON.stringify(val)); }
 function genId(prefix="id_"){ return prefix + Date.now() + Math.floor(Math.random()*900); }
 
-// init storage
+
 if(!localStorage.getItem(USERS_KEY)) write(USERS_KEY, []);
 if(!localStorage.getItem(DONATIONS_KEY)) write(DONATIONS_KEY, []);
 if(!localStorage.getItem(REQUESTS_KEY)) write(REQUESTS_KEY, []);
 
-// ------------ Page controls -------------
+
 function hideAll(){
   ["registerPage","loginPage","donorPage","receiverPage","adminPage"].forEach(id=>{
     const el=document.getElementById(id);
@@ -27,11 +27,11 @@ function showReceiver(){ hideAll(); document.getElementById("receiverPage").styl
 function showAdmin(){ hideAll(); document.getElementById("adminPage").style.display="block"; renderAdminInfo(); }
 function logout(){ localStorage.removeItem("bd_current"); alert("Logged out"); showLogin(); }
 
-// ---------- Helpers ----------
+
 function current(){ return JSON.parse(localStorage.getItem("bd_current") || "null"); }
 function setCurrent(obj){ localStorage.setItem("bd_current", JSON.stringify(obj)); }
 
-// ---------- Registration ----------
+
 document.getElementById("registerForm").addEventListener("submit", function(e){
   e.preventDefault();
   const name = document.getElementById("r_name").value.trim();
@@ -55,7 +55,7 @@ document.getElementById("registerForm").addEventListener("submit", function(e){
   showLogin();
 });
 
-// ---------- Login ----------
+
 document.getElementById("loginForm").addEventListener("submit", function(e){
   e.preventDefault();
   const uname = document.getElementById("l_user").value.trim();
@@ -64,7 +64,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
 
   if(!uname||!pass||!role){ alert("Fill all login fields"); return; }
 
-  // admin login
+
   if(role === "Admin"){
     if(uname === ADMIN.username && pass === ADMIN.password){
       setCurrent({ id: "admin", name: "Administrator", role: "Admin" });
@@ -72,7 +72,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
     } else { alert("Invalid admin credentials"); return; }
   }
 
-  // user login
+
   const users = read(USERS_KEY);
   const user = users.find(u=>u.name.toLowerCase()===uname.toLowerCase() && u.role===role && u.password===pass);
   if(!user){ alert("Invalid credentials or role. Check name/role/password."); return; }
@@ -81,7 +81,7 @@ document.getElementById("loginForm").addEventListener("submit", function(e){
   if(user.role==="Donor") showDonor(); else showReceiver();
 });
 
-// ---------- Donor placeholders ----------
+
 function renderDonorInfo(){
   const cur = current(); if(!cur) return;
   const users = read(USERS_KEY);
@@ -109,7 +109,7 @@ function showDonationHistory(){
   alert("Donation history:\n\n" + list);
 }
 
-// ---------- Receiver placeholders ----------
+
 function renderReceiverInfo(){
   const cur = current(); if(!cur) return;
   const users = read(USERS_KEY);
@@ -119,7 +119,7 @@ function renderReceiverInfo(){
   box.innerHTML = `<strong>${me.name}</strong><br>Blood Group: ${me.bgroup} • Contact: ${me.contact} • Age: ${me.age}`;
 }
 
-// ---------- Admin placeholders ----------
+
 function renderAdminInfo(){
   const users = read(USERS_KEY);
   const donors = users.filter(u=>u.role==="Donor").length;
@@ -137,7 +137,8 @@ function showStats(){
   alert(`Donation Statistics:\n\nTotal donations: ${total}\nLast donation: ${last}`);
 }
 
-// ---------- On load ----------
+
 (function init(){
   showRegister();
 })();
+
